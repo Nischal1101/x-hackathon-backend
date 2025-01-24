@@ -14,7 +14,50 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role
+  profile   Profile?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  STUDENT
+  TUTOR
+}
+
+model Profile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  user        User      @relation(fields: [userId], references: [id])
+  firstName   String
+  lastName    String
+  subject     String[]
+  basePrice   Int?
+  description String?
+  ratings     Rating[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Article     Article[]
+}
+
+model Article {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  authorId  String
+  author    Profile  @relation(fields: [authorId], references: [userId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  tutorId   String
+  value     Int
+  comment   String?
+  tutor     Profile  @relation(fields: [tutorId], references: [id])
+  createdAt DateTime @default(now())
 }
