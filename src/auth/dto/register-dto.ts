@@ -12,14 +12,15 @@ export class RegisterDto {
 
   @IsString()
   @IsNotEmpty()
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
+  fullName: string;
 
   @Transform(({ value }) => value.toUpperCase())
   @IsString()
   @IsNotEmpty()
   role: 'STUDENT' | 'TUTOR';
+
+  @Transform(({ value }) => value.toUpperCase())
+  @IsString()
+  @IsNotEmpty()
+  gender: 'MALE' | 'FEMALE';
 }
