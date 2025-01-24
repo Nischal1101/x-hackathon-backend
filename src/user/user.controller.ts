@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { UpdateProfileDto } from './dto';
 
 @Controller('user')
 @UseGuards(AuthGuard)
