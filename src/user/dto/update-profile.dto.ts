@@ -1,13 +1,13 @@
 import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class UserProfileDto {
+export class UpdateProfileDto {
   @IsString()
   @MinLength(6)
   description: string;
 
   @IsString()
   @MinLength(6)
-  subject: string;
+  subjects: string[];
 
   @IsString()
   @MinLength(6)
