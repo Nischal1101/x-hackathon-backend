@@ -53,4 +53,7 @@ export class AuthService {
     delete user.password;
     return user;
   }
+  logout() {
+    return 'User Successfully logged out';
+  }
 }
