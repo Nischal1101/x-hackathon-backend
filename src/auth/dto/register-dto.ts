@@ -14,6 +14,10 @@ export class RegisterDto {
   @IsNotEmpty()
   fullName: string;
 
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
   @Transform(({ value }) => value.toUpperCase())
   @IsString()
   @IsNotEmpty()
