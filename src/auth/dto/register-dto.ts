@@ -1,26 +1,22 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength, ValidateIf } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class RegisterDto {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
+  
   @IsString()
   @MinLength(6)
   password: string;
 
   @IsString()
   @IsNotEmpty()
-  firstName: string;
+  fullName: string;
 
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
 
   @IsString()
   @IsNotEmpty()
   phone: string;
+
+  
 
   @Transform(({ value }) => value.toUpperCase())
   @IsString()
@@ -31,4 +27,6 @@ export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   gender: 'MALE' | 'FEMALE';
+
+
 }

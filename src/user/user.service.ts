@@ -11,7 +11,7 @@ export class UserService {
       include: {
         user: {
           select: {
-            email: true,
+            
             role: true,
           },
         },
@@ -23,20 +23,23 @@ export class UserService {
     const { user, ...profileData } = profile;
     return {
       ...profileData,
-      email: user.email,
+      
       role: user.role,
     };
   }
   async updateProfile(req, dto: UpdateProfileDto) {
-    return this.prisma.profile.update({
-      where: { userId: req.user.sub },
-      data: {
-        firstName: dto.firstName,
-        lastName: dto.lastName,
-        description: dto.description,
-        subject: dto.subjects,
-        basePrice: dto.basePrice,
-      },
-    });
+    const updateData: Partial<UpdateProfileDto> = {};
+
+  // Only add fields that are present in the DTO
+  if (dto.firstName) updateData.firstName = dto.firstName;
+  if (dto.lastName) updateData.lastName = dto.lastName;
+  if (dto.description) updateData.description = dto.description;
+  if (dto.subjects) updateData.subjects = dto.subjects;
+  if (dto.basePrice) updateData.basePrice = dto.basePrice;
+
+  return this.prisma.profile.update({
+    where: { userId: req.user.sub },
+    data: updateData,
+  });
   }
 }
